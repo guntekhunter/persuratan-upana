@@ -1,16 +1,10 @@
-import React from 'react'
+import React, { Children } from 'react'
 
-export default function Card({item, type, ...props}) {
-  const TEXT_COLOR = {
-    success: "text-[#43936C]",
-    error: "text-[#CB3A31]",
-    
-  };
-  const textClassName = TEXT_COLOR[type];
-
+export default function Card({children, className, ...props}) {
+ 
   return (
-    <div className={`${textClassName} text-[12px]`}>
-      <p>{item}</p>
+    <div className={`${className} bg-[#FFFFFF] m-7 rounded-[12px] mb-8 p-6`}>
+      {children}
     </div>
   )
 }

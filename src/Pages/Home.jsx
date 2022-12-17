@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../Component/UiComponent/Button";
-import Text from "../Component/UiComponent/TextColor";
+import Button from "../Component/UiComponent/Buttons/Button";
+import Text from "../Component/UiComponent/Text/TextColor";
 import Inputs from "../Component/UiComponent/Inputs/Inputs";
 import Ipassword from "../Component/UiComponent/Inputs/Ipassword";
 import SignInImage from "../Assets/SignInLogo.png";
@@ -45,13 +45,12 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col input-label-container space-y-1">
                   <Text htmlFor="" color="primary" item="Password"/>
-                  <Ipassword></Ipassword>
-                  <Card type="error" item="password/email salah" />
+                  <Ipassword/>
+                  <Text color="error" item="password/email salah" />
                 </div>
                 <div>
                   <Link to={"/persuratan"}>
-                    <Button type="primary" className="w-full">
-                      <Text item="Masuk" />
+                    <Button type="primary" className="w-full" item="Masuk">
                     </Button>
                   </Link>
                 </div>
