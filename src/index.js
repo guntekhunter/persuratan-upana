@@ -12,6 +12,7 @@ import Home from './Pages/Home';
 import Persuratan from './Pages/Persuratan';
 import Riwayat from './Pages/Riwayat';
 import Preview from './Pages/Preview';
+import Print from './Pages/Print';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,6 +24,7 @@ root.render(
       <Route exact path="/riwayat" element={<Riwayat/>}></Route>
       <Route exact path="/App" element={<App/>}></Route>
       <Route exact path="/preview" element={<Preview/>}></Route>
+      <Route exact path="/print" element={<Print/>}></Route>
   </Routes>
   </BrowserRouter>
 );

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Inputs({ onChange, itype, Ticon, className, type, name,  ...props }) {
+export default function Inputs({ onChange, itype, Ticon, className, type, name, value,  ...props }) {
   const INPUT_TYPE = {
     primary:
       "focus:outline-none focus:border-[#1975FF] focus:ring-sky-[#BBCCF6] focus:ring-2 focus:border-[.9px] px-1",
@@ -11,7 +11,7 @@ export default function Inputs({ onChange, itype, Ticon, className, type, name, 
   const buttonClassName = INPUT_TYPE[itype];
   return (
     <div
-      className={`${className} relative flex items-center text-gray-400 relative`}
+      className={`${className} relative flex items-center text-[#333333] relative`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -27,9 +27,10 @@ export default function Inputs({ onChange, itype, Ticon, className, type, name, 
       </svg>
 
       <input
+      value={value}
       onChange={onChange} name={name}
         type={`${type} || text`}
-        className={`${buttonClassName} w-full h-fit rounded-[6px] h-[2rem] border-[1.5px] text-[.8rem] px-1.5 py-1`}
+        className={`${buttonClassName} w-full h-fit rounded-[6px] h-[2rem] border-[1.5px] text-[.8rem] px-1.5 py-1 pl-2`}
       />
     </div>
   );

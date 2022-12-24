@@ -11,6 +11,7 @@ import ButtonP from "../Component/UiComponent/Buttons/ButtonP";
 import ButtonDate from "../Component/UiComponent/Buttons/ButtonDate";
 import ButtonDrag from "../Component/UiComponent/Buttons/ButtonDrag";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ButtonInput from "../Component/UiComponent/Buttons/ButtonInput";
 import { getPost, createPost } from "../Post/Post";
 import { useEffect } from "react";
@@ -37,21 +38,27 @@ export default function Persuratan() {
     tanggal_lahir_pihak_dua: "",
     alamat_pihak_dua: "",
     tugas_pihak_dua: "",
-    job_detail:"",
-    job_detail:"astogel",
-    job_result:"",
-    job_result:"ulala",
-    payment_detail:"",
-    payment_detail:"handulillah",
+    job_detail: "",
+    job_detail: "astogel",
+    job_result: "",
+    job_result: "ulala",
+    payment_detail: "",
+    payment_detail: "handulillah",
     start_date: "",
     end_date: "",
     pembayaran: "",
     ttd_pihak_satu: "",
     ttd_pihak_dua: "",
-
+    nama_bank: "",
+    nama_rekening: "",
+    no_rekening: "",
+    pembayaran_pertama: "",
+    pembayaran_kedua: "",
   });
   const [rincian, setRincian] = useState(false);
   const [hasil, setHasil] = useState(false);
+  const [name, setName] = useState();
+  const [checkDefault, setCheckDefault] = useState(false);
   const [pembayaran, setPembayaran] = useState(false);
 
   // date
@@ -60,7 +67,7 @@ export default function Persuratan() {
     setItem((prev) => {
       return { ...prev, [nameDate]: date };
     });
-    if(date.length !== ""){
+    if (date.length !== "") {
       setActive(true);
     }
   };
@@ -73,28 +80,20 @@ export default function Persuratan() {
   const handleDeleteHasil = () => {
     setHasil(false);
   };
-  
+
   // bentuk hasil pekerjaan
   const handleAddRincian = () => {
     setRincian(true);
   };
-  
+
   const handleDeleteRincian = () => {
     setRincian(false);
   };
 
-  const handleAddPebayaran = () => {
-    setPembayaran(true);
-  };
-  
-  const handleDeletePembayaran = () => {
-    setPembayaran(false);
-  };
-  
   const fetchData = async () => {
     await getPost()
-    .then((res) => {
-      setItem(res);
+      .then((res) => {
+        setItem(res);
       })
       .catch((err) => {
         console.log(err);
@@ -112,7 +111,7 @@ export default function Persuratan() {
     setItem((prev) => {
       return { ...prev, [name]: value };
     });
-    if(value.length !== ""){
+    if (value.length !== "") {
       setActive(true);
     }
   };
@@ -141,10 +140,10 @@ export default function Persuratan() {
     });
     console.log(dataResult);
   };
-  
+
   const callback = (value) => {
     setDetail(value);
-    if(value.length !== ""){
+    if (value.length !== "") {
       setActive(true);
     }
   };
@@ -154,7 +153,7 @@ export default function Persuratan() {
     setItem((prev) => {
       return { ...prev, tujuan: tujuan };
     });
-    if(value.length !== ""){
+    if (value.length !== "") {
       setActive(true);
     }
   };
@@ -162,28 +161,33 @@ export default function Persuratan() {
   // file
   const fileCallback = (name, e) => {
     const nameFile = name;
-    setFileDetail(e)
+    setFileDetail(e);
     setItem((prev) => {
       return { ...prev, [nameFile]: e };
     });
     setActive(true);
-  }
-
+  };
 
   // push to api
   const save = async () => {
     await createPost(item)
-    .then((res) => {
-      setItem(res);
+      .then((res) => {
+        setItem(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-  
-  console.log(fileDetail);
+  };
+
+  // set Default
+  const handleDefault = (e) => {
+    if (e.target.checked) {
+      setCheckDefault(true);
+    } else {
+      setCheckDefault(false);
+    }
+  };
   console.log(item);
-  console.log(active);
 
   return (
     <NavBar pageName="Persuratan" to="/riwayat">
@@ -236,42 +240,76 @@ export default function Persuratan() {
           <div className="flex sm:grid-cols-2 w-full space-x-12">
             <div className="w-full relative flex flex-col space-y-1.5">
               <Text item="Nama" color="primary" star="on" />
+
               <Inputs
                 itype="primary"
                 Ticon="hidden"
                 onChange={handle}
                 name="nama_pihak_satu"
+                className={`${checkDefault ? "hidden" : "show"}`}
+              />
+              <Inputs
+                readonly
+                itype="secondary"
+                Ticon="hidden"
+                onChange={handle}
+                name="nama_pihak_satu"
+                className={`${
+                  !checkDefault ? "hidden" : "show"
+                } text-[#B2B2B2]`}
+                value="Ahmad Irfandi S.T"
               />
             </div>
             <div className="w-full relative flex flex-col space-y-1.5">
               <Text item="Jabatan" color="primary" star="on" />
               <Inputs
+                itype="primary"
+                Ticon="hidden"
+                onChange={handle}
+                name="jabatan_pihak_satu"
+                className={`${checkDefault ? "hidden" : "show"}`}
+              />
+              <Inputs
                 itype="secondary"
                 Ticon="hidden"
                 onChange={handle}
                 name="jabatan_pihak_satu"
+                className={`${
+                  !checkDefault ? "hidden" : "show"
+                } text-[#B2B2B2]`}
+                value="Direktur PT. Upana Pelopor Aplikasi Adikarya"
               />
             </div>
           </div>
           <div className="flex flex-col space-y-1.5">
             <Text item="Alamat" color="primary" star="on" />
             <Inputs
+              itype="primary"
+              Ticon="hidden"
+              onChange={handle}
+              name="alamat_pihak_satu"
+              className={`${checkDefault ? "hidden" : "show"}`}
+            />
+            <Inputs
               itype="secondary"
               Ticon="hidden"
               onChange={handle}
               name="alamat_pihak_satu"
+              className={`${!checkDefault ? "hidden" : "show"} text-[#B2B2B2]`}
+              value="BTN Pao Pao Indah Blok A1 No. 01"
             />
-            <div className="flex">
-              <input
-                type="checkbox"
-                className="h-4 w-4 border-1 rounded-[6px] mr-2 my-2 border-[#B2B2B2]"
-              />
-              <Text
-                item="Gunakan data default"
-                color="secondary"
-                className="px-0 py-2"
-              />
-            </div>
+          </div>
+          <div className="flex">
+            <input
+              onChange={handleDefault}
+              type="checkbox"
+              className="h-4 w-4 border-1 rounded-[6px] mr-2 border-[#B2B2B2]"
+            />
+            <Text
+              item="Gunakan data default"
+              color="secondary"
+              className="px-0"
+            />
           </div>
         </div>
         {/* section 3 */}
@@ -422,40 +460,87 @@ export default function Persuratan() {
                 name="pembayaran"
               />
             </div>
+
+            {/* rincian pembelajaran */}
             <div className="flex flex-col space-y-1.5">
               <Text item="Rincian Pembayaran" color="primary" star="on" />
-              {dataPayment.map((item) => (
-                <ButtonDrag item={item} />
-              ))}
-              <ButtonInput
-                onKeyPress={(event) => {
-                  event.key === "Enter" && addPayment();
-                }}
-                callback={callback}
-                onChange={handle}
-                name="payment_detail"
-                item="ulala"
-                listi={handleDeletePembayaran}
-                className={`${pembayaran === true ? "block" : "hidden"}`}
-              />
-              <ButtonAdd
-                item="Tambahkan Daftar Rincian"
-                onClick={handleAddPebayaran}
-              />
+              <div className="flex sm:grid-cols-2 w-full space-x-12">
+                <div className="w-full relative flex flex-col space-y-1.5">
+                  <Text item="Nama Bank" color="primary" star="on" />
+                  <Inputs
+                    itype="primary"
+                    Ticon="hidden"
+                    onChange={handle}
+                    name="nama_bank"
+                  />
+                </div>
+                <div className="w-full relative flex flex-col space-y-1.5">
+                  <Text
+                    item="Atas Nama pada Rekening"
+                    color="primary"
+                    star="on"
+                  />
+                  <Inputs
+                    itype="primary"
+                    Ticon="hidden"
+                    onChange={handle}
+                    name="nama_rekening"
+                  />
+                </div>
+              </div>
+              <div className="flex sm:grid-cols-2 w-full space-x-12">
+                <div className="w-[47.5%] relative flex flex-col space-y-1.5">
+                  <Text item="No. Rekening" color="primary" star="on" />
+                  <Inputs
+                    itype="primary"
+                    Ticon="hidden"
+                    onChange={handle}
+                    name="no_rekening"
+                  />
+                </div>
+              </div>
+              <div className="flex sm:grid-cols-2 w-full space-x-12">
+                <div className="w-full relative flex flex-col space-y-1.5">
+                  <Text item="Pembayaran Pertama" color="primary" star="on" />
+                  <Inputs
+                    itype="primary"
+                    Ticon="hidden"
+                    onChange={handle}
+                    name="pembayaran_pertama"
+                  />
+                </div>
+                <div className="w-full relative flex flex-col space-y-1.5">
+                  <Text item="Pembayaran Kedua" color="primary" star="on" />
+                  <Inputs
+                    itype="primary"
+                    Ticon="hidden"
+                    onChange={handle}
+                    name="pembayaran_kedua"
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="flex sm:grid-cols-2 w-full space-x-12">
             <div className="w-full relative flex flex-col space-y-1.5">
-              <Text item="Rincian Pekerjaan" color="primary" star="on" />
-              <ButtonUpload item="Tambahkan Daftar Rincian" name="ttd_pihak_satu" fileCallback={fileCallback}/>
-            </div>
-            <div className="w-full relative flex flex-col space-y-1.5">
               <Text
-                item="Penyerahan Hasil Pengerjaan"
+                item="Tanda Tangan Pihak Pertama"
                 color="primary"
                 star="on"
               />
-              <ButtonUpload item="Tambahkan Bentuk Hasil Pekerjaan" name="ttd_pihak_dua" fileCallback={fileCallback}/>
+              <ButtonUpload
+                item="Tambahkan Daftar Rincian"
+                name="ttd_pihak_satu"
+                fileCallback={fileCallback}
+              />
+            </div>
+            <div className="w-full relative flex flex-col space-y-1.5">
+              <Text item="Tanda Tangan Pihak Kedua" color="primary" star="on" />
+              <ButtonUpload
+                item="Tambahkan Bentuk Hasil Pekerjaan"
+                name="ttd_pihak_dua"
+                fileCallback={fileCallback}
+              />
             </div>
           </div>
         </div>
@@ -465,8 +550,29 @@ export default function Persuratan() {
         <div className="py-5">
           <div className="grid justify-items-end">
             <div className="flex space-x-3">
-              <ButtonP item="Simpan Sebagai Draft" onClick={save} className={`${active === true ? "text-[#333333] hover:bg-[#F1F1F1]" : "bg-[#F1F1F1] text-[#B2B2B2]"}`} icon="simpan" />
-              <ButtonP item="Cetak" className={`${active === true ? "bg-[#1975FF] text-[#FFFFFF] hover:bg-[#1561D5]" : "bg-[#F1F1F1] text-[#B2B2B2]"}`}/>
+              <ButtonP
+                item="Simpan Sebagai Draft"
+                onClick={save}
+                className={`${
+                  active === true
+                    ? "text-[#333333] hover:bg-[#F1F1F1]"
+                    : "bg-[#F1F1F1] text-[#B2B2B2]"
+                }`}
+                icon="simpan"
+              />
+              <Link
+                to={`${active === true ? "/print" : "/persuratan"}`}
+                state={{ data: item }}
+              >
+                <ButtonP
+                  item="Cetak"
+                  className={`${
+                    active === true
+                      ? "bg-[#1975FF] text-[#FFFFFF] hover:bg-[#1561D5]"
+                      : "bg-[#F1F1F1] text-[#B2B2B2]"
+                  }`}
+                />
+              </Link>
             </div>
           </div>
         </div>
