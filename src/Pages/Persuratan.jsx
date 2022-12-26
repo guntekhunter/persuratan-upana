@@ -116,6 +116,19 @@ export default function Persuratan() {
     }
   };
 
+  const handleDefaultInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    if (checkDefault === false) {
+      setItem((prev) => {
+        return { ...prev, [name]: value };
+      });
+      if (value.length !== "") {
+        setActive(true);
+      }
+    }
+  };
+
   // insert data to array
   const addDetail = () => {
     setDataDetail([...dataDetail, detail]);
@@ -123,14 +136,6 @@ export default function Persuratan() {
       return { ...prev, job_detail: dataDetail };
     });
     console.log(dataDetail);
-  };
-
-  const addPayment = () => {
-    setDataPayment([...dataPayment, detail]);
-    setItem((prev) => {
-      return { ...prev, payment_detail: dataPayment };
-    });
-    console.log(dataPayment);
   };
 
   const addResult = () => {
@@ -182,12 +187,22 @@ export default function Persuratan() {
   // set Default
   const handleDefault = (e) => {
     if (e.target.checked) {
+      setItem((prev) => {
+        return {
+          ...prev,
+          nama_pihak_satu: "Ahmad Irfandi S.T",
+          jabatan_pihak_satu: "Direktur PT. Upana Pelopor Aplikasi Adikarya",
+          alamat_pihak_satu: "BTN Pao Pao Indah Blok A1 No. 01",
+        };
+      });
       setCheckDefault(true);
     } else {
       setCheckDefault(false);
     }
   };
   console.log(item);
+  console.log(item?.ttd_pihak_satu.preview);
+
 
   return (
     <NavBar pageName="Persuratan" to="/riwayat">
@@ -244,7 +259,7 @@ export default function Persuratan() {
               <Inputs
                 itype="primary"
                 Ticon="hidden"
-                onChange={handle}
+                onChange={handleDefaultInput}
                 name="nama_pihak_satu"
                 className={`${checkDefault ? "hidden" : "show"}`}
               />
@@ -252,7 +267,7 @@ export default function Persuratan() {
                 readonly
                 itype="secondary"
                 Ticon="hidden"
-                onChange={handle}
+                onChange={handleDefaultInput}
                 name="nama_pihak_satu"
                 className={`${
                   !checkDefault ? "hidden" : "show"
@@ -265,19 +280,20 @@ export default function Persuratan() {
               <Inputs
                 itype="primary"
                 Ticon="hidden"
-                onChange={handle}
+                onChange={handleDefaultInput}
                 name="jabatan_pihak_satu"
                 className={`${checkDefault ? "hidden" : "show"}`}
               />
               <Inputs
                 itype="secondary"
                 Ticon="hidden"
-                onChange={handle}
+                onChange={handleDefaultInput}
                 name="jabatan_pihak_satu"
                 className={`${
                   !checkDefault ? "hidden" : "show"
                 } text-[#B2B2B2]`}
                 value="Direktur PT. Upana Pelopor Aplikasi Adikarya"
+                readonly
               />
             </div>
           </div>
@@ -286,17 +302,18 @@ export default function Persuratan() {
             <Inputs
               itype="primary"
               Ticon="hidden"
-              onChange={handle}
+              onChange={handleDefaultInput}
               name="alamat_pihak_satu"
               className={`${checkDefault ? "hidden" : "show"}`}
             />
             <Inputs
               itype="secondary"
               Ticon="hidden"
-              onChange={handle}
+              onChange={handleDefaultInput}
               name="alamat_pihak_satu"
               className={`${!checkDefault ? "hidden" : "show"} text-[#B2B2B2]`}
               value="BTN Pao Pao Indah Blok A1 No. 01"
+              readonly
             />
           </div>
           <div className="flex">

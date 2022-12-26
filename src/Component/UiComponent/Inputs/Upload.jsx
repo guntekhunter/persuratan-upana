@@ -5,7 +5,7 @@ import { BsCheckCircleFill } from "react-icons/bs";
 import { useDropzone } from "react-dropzone";
 import Dropzone from "react-dropzone";
 
-export default function Upload({name, fileCallback}) {
+export default function Upload({ name, fileCallback }) {
   const [files, setFiles] = useState([]);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -18,25 +18,25 @@ export default function Upload({name, fileCallback}) {
         // Do whatever you want with the file contents
         const binaryStr = reader.result;
         console.log(file);
-        fileCallback(name, file)
       };
       reader.readAsArrayBuffer(file);
     });
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  // const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  // const { getRootProps, getInputProps, isDragActive } = useDropzone({
-  //   onDrop: (acceptedFiles) => {
-  //     setFiles(
-  //       acceptedFiles.map((file) =>
-  //         Object.assign(file, {
-  //           preview: URL.createObjectURL(file),
-  //         })
-  //       )
-  //     );
-  //   },
-  // });
-  // console.log(files);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+      fileCallback(name, files);
+    },
+  });
+  console.log(files);
 
   return (
     <div {...getRootProps()}>

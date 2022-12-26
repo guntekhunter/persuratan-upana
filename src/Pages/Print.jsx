@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
@@ -12,6 +12,19 @@ export default function Print(props) {
   const location = useLocation();
   const data = location.state?.data;
   const componentRef = useRef();
+  const componentRefI = useRef();
+  const componentRefII = useRef();
+  const componentRefIII = useRef();
+  const componentRefIV = useRef();
+  const componentRefV = useRef();
+  const components = [
+    componentRef.current,
+    componentRefI.current,
+    componentRefII.current,
+    componentRefIII.current,
+    componentRefIV.current,
+    componentRefV.current,
+  ];
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -51,23 +64,25 @@ export default function Print(props) {
     endDate.getDate() + " " + bulanEnd + " " + endDate.getFullYear();
 
   console.log(data);
+  console.log(data.ttd_pihak_satu);
 
   return (
     <div className="flex justify-center py-10 bg-[#F1F1F1] p-8">
+      <div className="fixed m-5 z-10">
+        <button
+          className="bg-[#1975FF] px-3 py-2 rounded-[.3rem] text-[.8rem] text-[#FFFFFF]"
+          onClick={handlePrint}
+        >
+          Print
+        </button>
+      </div>
       <div>
-        <div className="fixed m-5">
-          <button
-            className="bg-[#1975FF] px-3 py-2 rounded-[.3rem] text-[.8rem] text-[#FFFFFF]"
-            onClick={handlePrint}
-          >
-            Print
-          </button>
-        </div>
         <div
           ref={componentRef}
-          className="bg-[#FFFFFF] overflow-hidden shadow-lg w-[100%]"
+          className="bg-[#FFFFFF] overflow-hidden shadow-lg w-[100%] z-10"
         >
-          <div className="first text-justify">
+          {/* <div className="first text-justify" ref={componentRef}> */}
+          <div className="first text-justify h-[70rem] relative">
             <div className="flex justify-between">
               <div className="flex ml-20 mt-1">
                 <img className="w-[8rem] h-[8rem] mt-4" src={Logo} />
@@ -99,11 +114,11 @@ export default function Print(props) {
                 </p>
               </div>
               <br />
-              <div className="">
+              <div className="space-x-2">
                 <div className="text-[.9rem]">
                   <p className="">Yang bertanda tangan dibawah ini:</p>
                   <br />
-                  <div className="flex ml-10 w-[21rem]">
+                  <div className="flex ml-10 w-[100%]">
                     <div>
                       <p>Nama</p>
                       <p>Jabatan</p>
@@ -130,7 +145,7 @@ export default function Print(props) {
                     selanjutnya disebut <b>PIHAK PERTAMA</b>.
                   </p>
                   <br />
-                  <div className="flex ml-10 w-[30rem] ">
+                  <div className="flex ml-10 w-[100%] ">
                     <div>
                       <p>Nama</p>
                       <p>Tempat & Tanggal Lahir</p>
@@ -170,8 +185,6 @@ export default function Print(props) {
                   </p>
                   <br />
                 </div>
-                <br />
-
                 <div className="text-center">
                   <div className="font-extrabold w-[100%] text-[.9rem]">
                     <p className="">PASAL 1</p>
@@ -189,18 +202,33 @@ export default function Print(props) {
                 </div>
                 <br />
                 <div className="flex text-[.7rem] space-x-32 italic">
-                  <p className="">Paraf Pihak 1 ______</p>
-                  <p className="">Paraf Pihak 2 ______</p>
+                  {data?.ttd_pihak_satu.map((item) => (
+                    <div className="flex space-x-2 ">
+                      <div className="">
+                        <p className="flex">Paraf Pihak 1</p>
+                      </div>
+                      <img className="w-20" src={`${item.preview}`} alt="" />
+                    </div>
+                  ))}
+                  {data?.ttd_pihak_dua.map((item) => (
+                    <div className="flex space-x-2 ">
+                      <div className="">
+                        <p className="flex">Paraf Pihak 1</p>
+                      </div>
+                      <img className="w-20" src={`${item.preview}`} alt="" />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-            <div className="footer mt-[5.5rem]">
+            <div className="z-0 footer mt-[5.5rem] absolute bottom-0 ">
               <img src={FooterImage} alt="" />
             </div>
           </div>
 
           {/* halaman 2 */}
-          <div className="text-justify">
+          {/* <div className="text-justify" ref={componentRefI}> */}
+          <div className="text-justify h-[70rem] relative">
             {/* header */}
             <div className="flex justify-between">
               <div className="flex ml-20 mt-1">
@@ -236,8 +264,8 @@ export default function Print(props) {
               <div className="text-[.9rem] flex">
                 <p className="mr-2">2. </p>
                 <p className="">
-                  <b>PARA PIHAK</b> telah sepakat bahwa masa perjanjian ini berlaku
-                  sejak ditandatangani sampai dengan kedua belah pihak
+                  <b>PARA PIHAK</b> telah sepakat bahwa masa perjanjian ini
+                  berlaku sejak ditandatangani sampai dengan kedua belah pihak
                   menyelesaikan kewajiban masing – masing.
                 </p>
               </div>
@@ -310,17 +338,32 @@ export default function Print(props) {
               </div>
               <br />
               <div className="flex text-[.7rem] space-x-32 italic">
-                <p className="">Paraf Pihak 1 ______</p>
-                <p className="">Paraf Pihak 2 ______</p>
+                {data?.ttd_pihak_satu.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 1</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
+                {data?.ttd_pihak_dua.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 2</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="footer mt-[6rem]">
+            <div className="footer mt-[6rem] absolute bottom-0">
               <img src={FooterImage} alt="" />
             </div>
           </div>
 
           {/* halaman 3 */}
-          <div className="text-justify">
+          {/* <div className="text-justify" ref={componentRefII}> */}
+          <div className="text-justify h-[70rem] relative">
             {/* header */}
             <div className="flex justify-between">
               <div className="flex ml-20 mt-1">
@@ -424,15 +467,15 @@ export default function Print(props) {
                   <div className="flex space-x-2">
                     <p>a.</p>
                     <p>
-                      Pembayaran dilakukan dengan cara transfer ke rekening
-                      [nama bank] dengan nomor rekening [no rek] atas nama [atas
-                      nama rekening].
+                      Pembayaran dilakukan dengan cara transfer ke rekening{" "}
+                      {data.nama_bank} dengan nomor rekening {data.no_rekening}{" "}
+                      atas nama {data.nama_rekening}.
                     </p>
                   </div>
                   <div className="flex space-x-2">
                     <p>b.</p>
                     <p>
-                      Pembayaran pertama senilai [pembayaran (terbilang)]
+                      Pembayaran pertama senilai {data.pembayaran_pertama}{" "}
                       sebagai down payment dibayarkan saat penandatanganan
                       kontrak.
                     </p>
@@ -442,17 +485,32 @@ export default function Print(props) {
 
               <br />
               <div className="flex text-[.7rem] space-x-32 italic">
-                <p className="">Paraf Pihak 1 ______</p>
-                <p className="">Paraf Pihak 2 ______</p>
+                {data?.ttd_pihak_satu.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 1</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
+                {data?.ttd_pihak_dua.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 2</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="footer mt-[5.5rem]">
+            <div className="footer mt-[5.5rem] absolute bottom-0">
               <img src={FooterImage} alt="" />
             </div>
           </div>
 
           {/* halaman 4 */}
-          <div className="text-justify">
+          {/* <div className="text-justify" ref={componentRefIII}> */}
+          <div className="text-justify h-[70rem] relative">
             {/* header */}
             <div className="flex justify-between">
               <div className="flex ml-20 mt-1">
@@ -478,18 +536,10 @@ export default function Print(props) {
             <div className="judul px-28">
               <div className="ml-10 text-[.9rem]">
                 <div className="flex space-x-2">
-                  <p>a.</p>
+                  <p>c.</p>
                   <p>
-                    Pembayaran dilakukan dengan cara transfer ke rekening [nama
-                    bank] dengan nomor rekening [no rek] atas nama [atas nama
-                    rekening].
-                  </p>
-                </div>
-                <div className="flex space-x-2">
-                  <p>b.</p>
-                  <p>
-                    Pembayaran pertama senilai {data.pembayaran} sebagai down
-                    payment dibayarkan saat penandatanganan kontrak.
+                    Pembayaran kedua senilai {data.pembayaran_kedua} akan
+                    dibayarkan setelah pekerjaan selesai.
                   </p>
                 </div>
               </div>
@@ -583,17 +633,32 @@ export default function Print(props) {
 
               <br />
               <div className="flex text-[.7rem] space-x-32 italic">
-                <p className="">Paraf Pihak 1 ______</p>
-                <p className="">Paraf Pihak 2 ______</p>
+                {data?.ttd_pihak_satu.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 1</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
+                {data?.ttd_pihak_dua.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 2</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="footer mt-[5rem]">
+            <div className="footer mt-[5rem] absolute bottom-0">
               <img src={FooterImage} alt="" />
             </div>
           </div>
 
           {/* halaman 5 */}
-          <div className="text-justify">
+          {/* <div className="text-justify" ref={componentRefIV}> */}
+          <div className="text-justify h-[70rem] relative">
             {/* header */}
             <div className="flex justify-between">
               <div className="flex ml-20 mt-1">
@@ -624,12 +689,12 @@ export default function Print(props) {
                 </div>
                 <div className="text-[.9rem] flex">
                   <p>
-                    Dalam pelaksanaan kerjasama tersebut, <b>PARA PIHAK</b> sepakat
-                    bahwa seluruh informasi baik mengenai hasil-hasil yang
-                    dicapai maupun segala sesuatu yang diketahui atau
-                    dipertukarkan oleh <b>PARA PIHAK</b> baik pada saat sebelum, selama
-                    maupun sesudah proses pelaksanaan kerjasama ini, wajib
-                    diperlakukan sebagai rahasia terhitung sejak tanggal
+                    Dalam pelaksanaan kerjasama tersebut, <b>PARA PIHAK</b>{" "}
+                    sepakat bahwa seluruh informasi baik mengenai hasil-hasil
+                    yang dicapai maupun segala sesuatu yang diketahui atau
+                    dipertukarkan oleh <b>PARA PIHAK</b> baik pada saat sebelum,
+                    selama maupun sesudah proses pelaksanaan kerjasama ini,
+                    wajib diperlakukan sebagai rahasia terhitung sejak tanggal
                     berakhirnya Perjanjian Kerjasama ini karena sebab apapun,
                     kecuali ditentukan lain secara tertulis oleh pihak yang
                     memberi informasi.
@@ -687,17 +752,32 @@ export default function Print(props) {
               </div>
               <br />
               <div className="flex text-[.7rem] space-x-32 italic">
-                <p className="">Paraf Pihak 1 ______</p>
-                <p className="">Paraf Pihak 2 ______</p>
+                {data?.ttd_pihak_satu.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 1</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
+                {data?.ttd_pihak_dua.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 2</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="footer mt-[7.5rem]">
+            <div className="footer mt-[7.5rem] absolute bottom-0">
               <img src={FooterImage} alt="" />
             </div>
           </div>
 
           {/* halaman 6 */}
-          <div className="text-justify">
+          {/* <div className="text-justify" ref={componentRefV}> */}
+          <div className="text-justify h-[70rem] relative">
             {/* header */}
             <div className="flex justify-between">
               <div className="flex ml-20 mt-1">
@@ -755,9 +835,17 @@ export default function Print(props) {
                     <div className="flex space-x-2">
                       <div>Tanda Tangan</div>
                       <div>:</div>
-                      <div></div>
+                      <div>
+                        {data?.ttd_pihak_satu.map((item) => (
+                          <img
+                            className="w-20"
+                            src={`${item.preview}`}
+                            alt=""
+                          />
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex space-x-2 bg-gray-300">
+                    <div className="flex space-x-2">
                       <div>Nama</div>
                       <div>:</div>
                       <div>{data.nama_pihak_satu}</div>
@@ -780,9 +868,17 @@ export default function Print(props) {
                     <div className="flex space-x-2">
                       <div>Tanda Tangan</div>
                       <div>:</div>
-                      <div></div>
+                      <div>
+                        {data?.ttd_pihak_dua.map((item) => (
+                          <img
+                            className="w-20"
+                            src={`${item.preview}`}
+                            alt=""
+                          />
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex space-x-2 bg-gray-300">
+                    <div className="flex space-x-2">
                       <div>Nama</div>
                       <div>:</div>
                       <div>{data.nama_pihak_dua}</div>
@@ -793,17 +889,31 @@ export default function Print(props) {
               <div className="mt-20 text-[.9rem]">
                 <p>Lampiran:</p>
                 <div className="flex ml-5 space-x-5">
-                <p>-</p>
-                <p>Fotocopy KTP / NPWP / SIM</p>
+                  <p>-</p>
+                  <p>Fotocopy KTP / NPWP / SIM</p>
                 </div>
               </div>
               <br />
               <div className="flex text-[.7rem] space-x-32 italic">
-                <p className="">Paraf Pihak 1 ______</p>
-                <p className="">Paraf Pihak 2 ______</p>
+                {data?.ttd_pihak_satu.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 1</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
+                {data?.ttd_pihak_dua.map((item) => (
+                  <div className="flex space-x-2 ">
+                    <div className="">
+                      <p className="flex">Paraf Pihak 2</p>
+                    </div>
+                    <img className="w-20" src={`${item.preview}`} alt="" />
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="footer mt-20">
+            <div className="footer mt-20 absolute bottom-0">
               <img src={FooterImage} alt="" />
             </div>
           </div>
