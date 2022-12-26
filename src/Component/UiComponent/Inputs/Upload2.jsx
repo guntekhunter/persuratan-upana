@@ -3,11 +3,26 @@ import TextColor from "../Text/TextColor";
 import { HiUpload } from "react-icons/hi";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { useDropzone } from "react-dropzone";
+import Dropzone from "react-dropzone";
 
 export default function Upload({ name, fileCallback }) {
   const [files, setFiles] = useState([]);
   const [upload, setUpload] = useState(false);
 
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onabort = () => console.log("file reading was aborted");
+      reader.onerror = () => console.log("file reading has failed");
+      reader.onload = () => {
+        // Do whatever you want with the file contents
+        const binaryStr = reader.result;
+        console.log(file);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }, []);
   // const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

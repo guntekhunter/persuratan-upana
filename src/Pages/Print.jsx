@@ -17,14 +17,6 @@ export default function Print(props) {
   const componentRefIII = useRef();
   const componentRefIV = useRef();
   const componentRefV = useRef();
-  const components = [
-    componentRef.current,
-    componentRefI.current,
-    componentRefII.current,
-    componentRefIII.current,
-    componentRefIV.current,
-    componentRefV.current,
-  ];
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -65,6 +57,13 @@ export default function Print(props) {
 
   console.log(data);
   console.log(data.ttd_pihak_satu);
+  // console.log("job detail", data.job_detail);
+  if (data.job_detail === "") {
+    console.log("hah");
+  } else {
+    console.log("job detail", data.job_detail);
+    console.log("job detail", data.job_detail);
+  }
 
   return (
     <div className="flex justify-center py-10 bg-[#F1F1F1] p-8">
@@ -298,9 +297,11 @@ export default function Print(props) {
                     </p>
                   </div>
                   <div className="ml-20">
-                    {data.job_detail.map((item) => (
-                      <li>{item}</li>
-                    ))}
+                    {data.job_result !== "" && (
+                      <>
+                        {data && data.job_detail.map((item) => <li>{item}</li>)}
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className="container">
@@ -311,9 +312,11 @@ export default function Print(props) {
                     </p>
                   </div>
                   <div className="ml-20">
-                    {data.job_result.map((item) => (
-                      <li>{item}</li>
-                    ))}
+                    {data.job_result !== "" && (
+                      <>
+                        {data && data.job_result.map((item) => <li>{item}</li>)}
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className="container">

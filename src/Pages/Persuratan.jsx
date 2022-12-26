@@ -7,6 +7,7 @@ import Inputs from "../Component/UiComponent/Inputs/Inputs";
 import TextArea from "../Component/UiComponent/Inputs/textArea";
 import ButtonAdd from "../Component/UiComponent/Buttons/ButtonAdd";
 import ButtonUpload from "../Component/UiComponent/Inputs/Upload";
+import ButtonUpload2 from "../Component/UiComponent/Inputs/Upload2";
 import ButtonP from "../Component/UiComponent/Buttons/ButtonP";
 import ButtonDate from "../Component/UiComponent/Buttons/ButtonDate";
 import ButtonDrag from "../Component/UiComponent/Buttons/ButtonDrag";
@@ -18,11 +19,8 @@ import { useEffect } from "react";
 import { list } from "postcss";
 
 export default function Persuratan() {
-  // const data = [{ title: "ommaleka" }, { title: "ulala" }, { title: "uhhuy" }];
   const [dataDetail, setDataDetail] = useState([]);
   const [dataResult, setDataResult] = useState([]);
-  const [dataPayment, setDataPayment] = useState([]);
-  const [fileDetail, setFileDetail] = useState([]);
   const [active, setActive] = useState(false);
   const [detail, setDetail] = useState();
   const [tujuan, setTujuan] = useState();
@@ -39,9 +37,7 @@ export default function Persuratan() {
     alamat_pihak_dua: "",
     tugas_pihak_dua: "",
     job_detail: "",
-    job_detail: "astogel",
     job_result: "",
-    job_result: "ulala",
     payment_detail: "",
     payment_detail: "handulillah",
     start_date: "",
@@ -59,7 +55,6 @@ export default function Persuratan() {
   const [hasil, setHasil] = useState(false);
   const [name, setName] = useState();
   const [checkDefault, setCheckDefault] = useState(false);
-  const [pembayaran, setPembayaran] = useState(false);
 
   // date
   const dateChangeHandler = (date, name) => {
@@ -166,7 +161,6 @@ export default function Persuratan() {
   // file
   const fileCallback = (name, e) => {
     const nameFile = name;
-    setFileDetail(e);
     setItem((prev) => {
       return { ...prev, [nameFile]: e };
     });
@@ -553,7 +547,7 @@ export default function Persuratan() {
             </div>
             <div className="w-full relative flex flex-col space-y-1.5">
               <Text item="Tanda Tangan Pihak Kedua" color="primary" star="on" />
-              <ButtonUpload
+              <ButtonUpload2
                 item="Tambahkan Bentuk Hasil Pekerjaan"
                 name="ttd_pihak_dua"
                 fileCallback={fileCallback}
