@@ -95,10 +95,6 @@ export default function Persuratan() {
       });
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   // handle semua inputan
   const handle = (e) => {
     const name = e.target.name;
@@ -161,6 +157,7 @@ export default function Persuratan() {
   // file
   const fileCallback = (name, e) => {
     const nameFile = name;
+    setName(e)
     setItem((prev) => {
       return { ...prev, [nameFile]: e };
     });

@@ -12,11 +12,6 @@ export default function Print(props) {
   const location = useLocation();
   const data = location.state?.data;
   const componentRef = useRef();
-  const componentRefI = useRef();
-  const componentRefII = useRef();
-  const componentRefIII = useRef();
-  const componentRefIV = useRef();
-  const componentRefV = useRef();
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -67,7 +62,7 @@ export default function Print(props) {
 
   return (
     <div className="flex justify-center py-10 bg-[#F1F1F1] p-8">
-      <div className="fixed m-5 z-10">
+      <div className="fixed m-5 z-20">
         <button
           className="bg-[#1975FF] px-3 py-2 rounded-[.3rem] text-[.8rem] text-[#FFFFFF]"
           onClick={handlePrint}
@@ -200,21 +195,41 @@ export default function Print(props) {
                   </p>
                 </div>
                 <br />
-                <div className="flex text-[.7rem] space-x-32 italic">
+                <div className="flex text-[.7rem] space-x-20 italic">
                   {data?.ttd_pihak_satu.map((item) => (
-                    <div className="flex space-x-2 ">
-                      <div className="">
-                        <p className="flex">Paraf Pihak 1</p>
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 1</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_satu}
+                        </p>
                       </div>
-                      <img className="w-20" src={`${item.preview}`} alt="" />
+                      <u></u>
                     </div>
                   ))}
                   {data?.ttd_pihak_dua.map((item) => (
-                    <div className="flex space-x-2 ">
-                      <div className="">
-                        <p className="flex">Paraf Pihak 1</p>
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 2</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_dua}
+                        </p>
                       </div>
-                      <img className="w-20" src={`${item.preview}`} alt="" />
+                      <u></u>
                     </div>
                   ))}
                 </div>
@@ -340,23 +355,43 @@ export default function Print(props) {
                 </div>
               </div>
               <br />
-              <div className="flex text-[.7rem] space-x-32 italic">
-                {data?.ttd_pihak_satu.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 1</p>
+              <div className="flex text-[.7rem] space-x-20 italic">
+              {data?.ttd_pihak_satu.map((item) => (
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 1</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_satu}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
-                {data?.ttd_pihak_dua.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 2</p>
+                  ))}
+                  {data?.ttd_pihak_dua.map((item) => (
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 2</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_dua}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
             <div className="footer mt-[6rem] absolute bottom-0">
@@ -467,7 +502,7 @@ export default function Print(props) {
                   </p>
                 </div>
                 <div className="ml-10 text-[.9rem]">
-                  <div className="flex space-x-2">
+                  <div className="flex z-10">
                     <p>a.</p>
                     <p>
                       Pembayaran dilakukan dengan cara transfer ke rekening{" "}
@@ -475,7 +510,7 @@ export default function Print(props) {
                       atas nama {data.nama_rekening}.
                     </p>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="flex z-10">
                     <p>b.</p>
                     <p>
                       Pembayaran pertama senilai {data.pembayaran_pertama}{" "}
@@ -487,23 +522,43 @@ export default function Print(props) {
               </div>
 
               <br />
-              <div className="flex text-[.7rem] space-x-32 italic">
+              <div className="flex text-[.7rem] space-x-20 italic">
                 {data?.ttd_pihak_satu.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 1</p>
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 1</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_satu}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
-                {data?.ttd_pihak_dua.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 2</p>
+                  ))}
+                  {data?.ttd_pihak_dua.map((item) => (
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 2</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_dua}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
             <div className="footer mt-[5.5rem] absolute bottom-0">
@@ -538,7 +593,7 @@ export default function Print(props) {
             {/* isi */}
             <div className="judul px-28">
               <div className="ml-10 text-[.9rem]">
-                <div className="flex space-x-2">
+                <div className="flex z-10">
                   <p>c.</p>
                   <p>
                     Pembayaran kedua senilai {data.pembayaran_kedua} akan
@@ -569,14 +624,14 @@ export default function Print(props) {
                   </p>
                 </div>
                 <div className="ml-10 text-[.9rem]">
-                  <div className="flex space-x-2">
+                  <div className="flex z-10">
                     <p>a.</p>
                     <p>
                       Pekerjaan tidak sesuai dengan yang ditargetkan atau
                       ditetapkan <b>PIHAK PERTAMA</b> sebelumnya.
                     </p>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="flex z-10">
                     <p>b.</p>
                     <p>
                       Tidak memberikan laporan sesuai dengan waktu yang
@@ -584,21 +639,21 @@ export default function Print(props) {
                       tertulis dan dari <b>PIHAK PERTAMA</b>.
                     </p>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="flex z-10">
                     <p>c.</p>
                     <p>
                       Melakukan hal – hal lain karena kecerobohan yang
                       mengakibatkan <b>PIHAK PERTAMA</b> mengalami kerugian.
                     </p>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="flex z-10">
                     <p>d.</p>
                     <p>
                       Melakukan perusakan dengan sengaja yang menimbulkan
                       kerugian <b>PIHAK PERTAMA</b>.
                     </p>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="flex z-10">
                     <p>e.</p>
                     <p>
                       Melakukan tindak penipuan, pencurian, penggelapan, atau
@@ -635,23 +690,43 @@ export default function Print(props) {
               </div>
 
               <br />
-              <div className="flex text-[.7rem] space-x-32 italic">
+              <div className="flex text-[.7rem] space-x-20 italic">
                 {data?.ttd_pihak_satu.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 1</p>
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 1</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_satu}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
-                {data?.ttd_pihak_dua.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 2</p>
+                  ))}
+                  {data?.ttd_pihak_dua.map((item) => (
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 2</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_dua}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
             <div className="footer mt-[5rem] absolute bottom-0">
@@ -754,23 +829,43 @@ export default function Print(props) {
                 </div>
               </div>
               <br />
-              <div className="flex text-[.7rem] space-x-32 italic">
+              <div className="flex text-[.7rem] space-x-20 italic">
                 {data?.ttd_pihak_satu.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 1</p>
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 1</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_satu}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
-                {data?.ttd_pihak_dua.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 2</p>
+                  ))}
+                  {data?.ttd_pihak_dua.map((item) => (
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 2</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_dua}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
             <div className="footer mt-[7.5rem] absolute bottom-0">
@@ -835,25 +930,25 @@ export default function Print(props) {
                 <div className="flex text-[.9rem] space-x-10">
                   <div className="left">Tanggal: [tanggal dibuat]</div>
                   <div className="right">
-                    <div className="flex space-x-2">
+                    <div className="flex z-10">
                       <div>Tanda Tangan</div>
                       <div>:</div>
                       <div>
                         {data?.ttd_pihak_satu.map((item) => (
                           <img
-                            className="w-20"
+                            className="w-[10rem]"
                             src={`${item.preview}`}
                             alt=""
                           />
                         ))}
                       </div>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex z-10">
                       <div>Nama</div>
                       <div>:</div>
                       <div>{data.nama_pihak_satu}</div>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex z-10">
                       <div>Jabatan</div>
                       <div>:</div>
                       <div>{data.jabatan_pihak_satu}</div>
@@ -868,20 +963,20 @@ export default function Print(props) {
                 <div className="flex text-[.9rem] space-x-10">
                   <div className="left">Tanggal: [tanggal dibuat]</div>
                   <div className="right">
-                    <div className="flex space-x-2">
+                    <div className="flex z-10">
                       <div>Tanda Tangan</div>
                       <div>:</div>
                       <div>
                         {data?.ttd_pihak_dua.map((item) => (
                           <img
-                            className="w-20"
+                            className="w-[10rem]"
                             src={`${item.preview}`}
                             alt=""
                           />
                         ))}
                       </div>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex z-10">
                       <div>Nama</div>
                       <div>:</div>
                       <div>{data.nama_pihak_dua}</div>
@@ -897,23 +992,43 @@ export default function Print(props) {
                 </div>
               </div>
               <br />
-              <div className="flex text-[.7rem] space-x-32 italic">
+              <div className="flex text-[.7rem] space-x-20 italic">
                 {data?.ttd_pihak_satu.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 1</p>
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 1</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_satu}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
-                {data?.ttd_pihak_dua.map((item) => (
-                  <div className="flex space-x-2 ">
-                    <div className="">
-                      <p className="flex">Paraf Pihak 2</p>
+                  ))}
+                  {data?.ttd_pihak_dua.map((item) => (
+                    <div className="flex z-10 ">
+                      <div className="h-[8rem] relative">
+                        <div className="">
+                          <p className="flex">Paraf Pihak 2</p>
+                        </div>
+                        <img
+                          className="w-[10rem]"
+                          src={`${item.preview}`}
+                          alt=""
+                        />
+                        <p className="absolute bottom-0">
+                          {data.nama_pihak_dua}
+                        </p>
+                      </div>
+                      <u></u>
                     </div>
-                    <img className="w-20" src={`${item.preview}`} alt="" />
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
             <div className="footer mt-20 absolute bottom-0">
